@@ -2,24 +2,17 @@ const createError = require('http-errors');
 const logger = require('./logger')
 
 const requestLogger = (req, res, next) => {
-  const { method, path, body } = req;
-  const logMessage = `Request: ${method} ${path} - Body: ${JSON.stringify(body)}`;
-  logger.info(logMessage);
-  next();
+	const { method, path, body } = req;
+	const logMessage = `Request: ${method} ${path} - Body: ${JSON.stringify(body)}`;
+	logger.info(logMessage);
+	next();
 };
 
-const tokenExtractor = (req, res, next) => {
-	// code that extracts the token
-	const authorization = req.get('authorization')
-	if (authorization && authorization.startsWith('Bearer ')) {
-		req.token = authorization.substring(7)
-
-		logger.info(
-			'Token:  ',
-			req.token
-		)
+const checkAuthentication = (routeStr) => (req, res, next) => {
+	if (req.isAuthenticated()) {
+		return next();
 	}
-	next()
+	res.redirect(routeStr);
 }
 
 const unknownEndpoint = (req, res, next) => {
@@ -51,7 +44,7 @@ const errorHandler = (err, req, res, next) => {
 
 module.exports = {
 	requestLogger,
-	tokenExtractor,
 	unknownEndpoint,
 	errorHandler,
+	checkAuthentication
 }

@@ -2,39 +2,45 @@
 <html>
 
 <head>
-	<title>Sign Up</title>
-	<link rel='stylesheet' href='/stylesheets/style.css'>
-	<link rel='stylesheet' href='/stylesheets/tailwind.css'>
-	<link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap'
-		rel='stylesheet'>
+  <title>Sign Up</title>
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+  <link rel='stylesheet' href='/stylesheets/tailwind.css'>
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
 </head>
 
 <body class='bg-light font-sans text-dark min-h-screen'>
-	<a class='text-primary text-lg'>Go back to the homepage</a>
-	<div class='container mx-auto mt-16 max-w-md p-6 bg-white rounded-lg shadow-md'>
-		<h1 class='text-2xl font-semibold mb-6'>Sign Up</h1>
-		<form action='/sign-up' method='post'>
-			<div class='form-group mb-4'>
-				<label for='email' class='block mb-2'>Email:</label>
-				<input type='email' id='email' name='email' class='w-full px-3 py-2 border border-gray-300 rounded-lg' required>
-			</div>
-			<div class='form-group mb-4'>
-				<label for='username' class='block mb-2'>Username:</label>
-				<input type='text' id='username' name='username' class='w-full px-3 py-2 border border-gray-300 rounded-lg'
-					required>
-			</div>
-			<div class='form-group mb-4'>
-				<label for='password' class='block mb-2'>Password:</label>
-				<input type='password' id='password' name='password' class='w-full px-3 py-2 border border-gray-300 rounded-lg'
-					required>
-			</div>
-			<div class='form-group mb-6'>
-				<label for='confirmPassword' class='block mb-2'>Confirm Password:</label>
-				<input type='password' id='confirmPassword' name='confirmPassword'
-					class='w-full px-3 py-2 border border-gray-300 rounded-lg' required>
-			</div>
-			<button type='submit' class='w-full py-2 px-3 bg-blue-600 text-white font-semibold rounded-lg'>Sign Up</button>
-		</form>
-	</div>
+  <a href='/' class='text-primary text-md hover:underline'>Return to homepage</a>
+  <div class='container mx-auto mt-16 max-w-md p-6 bg-white rounded-lg shadow-md'>
+    <h1 class='text-2xl font-semibold mb-6'>Sign Up</h1>
+    <form action='/register' method='post'>
+      <div class='form-group mb-4'>
+        <label for='email' class='block mb-2'>Email:</label>
+        <input type='email' id='email' name='email' class='w-full px-3 py-2 border border-gray-300 rounded-lg' required value='<%= typeof email !== 'undefined' ? email : '' %>'>
+      </div>
+      <div class='form-group mb-4'>
+        <label for='username' class='block mb-2'>Username:</label>
+        <input type='text' id='username' name='username' class='w-full px-3 py-2 border border-gray-300 rounded-lg' required value='<%= typeof username !== 'undefined' ? username : '' %>'>
+      </div>
+      <div class='form-group mb-4'>
+        <label for='password' class='block mb-2'>Password:</label>
+        <input type='password' id='password' name='password' class='w-full px-3 py-2 border border-gray-300 rounded-lg' required value='<%= typeof password !== 'undefined' ? password : '' %>'>
+      </div>
+      <div class='form-group mb-6'>
+        <label for='confirmPassword' class='block mb-2'>Confirm Password:</label>
+        <input type='password' id='confirmPassword' name='confirmPassword' class='w-full px-3 py-2 border border-gray-300 rounded-lg' required>
+      </div>
+      <% if(errors){ %>
+      <ul class='list-disc mx-2'>
+        <% for(let i=0; i< errors.length; i++) { %>
+        <li class='text-red'>
+          <%= errors[i].msg %>
+        </li>
+        <% } %>
+      </ul>
+      <% } %>
+      <button type='submit' class='w-full py-2 px-3 bg-blue-600 text-white font-semibold rounded-lg'>Sign Up</button>
+    </form>
+  </div>
 </body>
+
 </html>

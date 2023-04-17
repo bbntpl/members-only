@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>
-		<%= title %>
-	</title>
-	<link rel="stylesheet" href="/stylesheets/style.css" />
-	<link rel="stylesheet" href="/stylesheets/tailwind.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap"
-		rel="stylesheet">
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
 </head>
 
-<body class="bg-light font-sans text-dark min-h-screen">
-	<div class="container mx-auto px-4 py-20">
-		<h1 class="font-headings text-primary text-4xl mb-8">
-			<%= title %>
-		</h1>
-		<p class="mb-8">Welcome to <%= title %>
-		</p>
-		<div class="space-x-4">
-			<button id="sign-up-btn"
-				class="bg-accent text-light font-semibold px-4 py-2 rounded hover:bg-accent-light transition-colors">Sign
-				up</button>
-			<button id="sign-in-btn"
-				class="bg-primary text-light font-semibold px-4 py-2 rounded hover:bg-primary-light transition-colors">Sign
-				in</button>
-			<button id="access-btn"
-				class="bg-secondary text-light font-semibold px-4 py-2 rounded hover:bg-secondary-light transition-colors">Access
-				website as a viewer</button>
-		</div>
-	</div>
+<body class='bg-light font-sans text-dark min-h-screen'>
+  <div class='container mx-auto px-4 py-20'>
+    <h1 class='font-headings text-primary text-4xl mb-8'>
+      <%= title %>
+    </h1>
+    <% if(user) { %>
+    <p class='mb-8'>Welcome <%= user.username %>, please have a visit!</p>
+    <% } else { %>
+    <p class='mb-8'>Welcome to the Amba Gang Clubhouse!</p>
+    <% } %>
+    <div class='space-x-4'>
+      <% if(!user) { %>
+      <button id='sign-up-btn' class='bg-accent text-light font-semibold px-4 py-2 rounded hover:bg-accent-light transition-colors'>Sign
+        up</button>
+      <button id='sign-in-btn' class='bg-primary text-light font-semibold px-4 py-2 rounded hover:bg-primary-light transition-colors'>Sign
+        in</button>
+      <% } %>
+      <button id='access-btn' class='bg-secondary text-light font-semibold px-4 py-2 rounded hover:bg-secondary-light transition-colors'>Access
+        website as a <%= user ? 'user' : 'viewer' %></button>
+    </div>
+  </div>
 </body>
-<script src="/javascripts/main.js"></script>
+<script src='/javascripts/main.js'></script>
 
 </html>

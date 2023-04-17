@@ -17,7 +17,7 @@ const userSchema = new Schema({
 		required: true,
 		min: 4,
 		max: 20,
-		match: /^[azAZ09]+$/,
+		match: /^[a-zA-Z0-9]+$/,
 	},
   hashedPassword: {
     type: String,
@@ -26,13 +26,11 @@ const userSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 50
   },
   lastName: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 50
   },
@@ -46,10 +44,7 @@ const userSchema = new Schema({
 		required: true,
 		default: false,
 	},
-	aboutMe: {
-		type: String,
-		required: false
-	}
+	aboutMe: String,
 })
 
 userSchema.set('toJSON', {

@@ -16,6 +16,7 @@
     "dotenv": "^16.0.3",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.17.3",
     "express-validator": "^7.0.0",
     "helmet": "^6.1.5",
     "http-errors": "~1.6.3",
