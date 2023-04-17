@@ -12,6 +12,7 @@ const indexRouter = require('./routes/indexRouter');
 const usersRouter = require('./routes/usersRouter');
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
+const logoutRouter = require('./routes/logoutRouter');
 const postsRouter = require('./routes/publicPostsRouter');
 
 const {
@@ -34,7 +35,7 @@ mongoose.connect(MONGODB_URI)
 	});
 
 app.use(session({
-	secret: 'meoowwwwww',
+	secret: 'meow',
 	resave: false,
 	saveUninitialized: true
 }));
@@ -64,6 +65,7 @@ app.use(requestLogger);
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/users', usersRouter);
 app.use('/public-posts', postsRouter);
 

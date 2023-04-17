@@ -34,7 +34,9 @@ exports.login = (req, res, next) => {
 			return res.render('login', {
 				emailOrUsername: req.body.emailOrUsername,
 				password: req.body.password,
-				errors: [...errors.array(), info.message],
+				errors: [...errors.array(), {
+					msg: info.messages
+				}],
 			});
 		}
 

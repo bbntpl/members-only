@@ -1,20 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
+
 <head>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<link rel='stylesheet' href='/stylesheets/tailwind.css' />
-	<link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap'
-	rel='stylesheet'>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Welcome to Members Page</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
 </head>
 
-<body>
-	<main>
-		<div>
-			<ul>
-				<li></li>
-			</ul>
-		</div>
-	</div>
+<body class='bg-light text-dark font-sans'>
+  <div class='flex'>
+    <% if (currentUser && currentUser.membershipStatus) { %>
+    <aside class='w-1/4 p-4 bg-primary text-light'>
+      <h2 class='font-headings mb-4'>Members</h2>
+      <ul>
+        <% users.forEach(user => { %>
+        <li class='mb-2'><%= user.username %></li>
+        <% }); %>
+      </ul>
+    </aside>
+    <% } %>
+    <main class='flex-grow p-4'>
+      <% if (currentUser) { %>
+      <div class='mb-4'>
+        <h2 class='font-headings text-secondary mb-2'>Membership Status</h2>
+        <p class='text-accent'>Click here for membership status</p>
+      </div>
+      <div class='mb-4'>
+        <button class='bg-accent text-light py-2 px-4 rounded'>Create post</button>
+      </div>
+      <div class='max-h-72 overflow-y-scroll'>
+        <h2 class='font-headings text-secondary mb-4'>Posts</h2>
+        <% if(posts.length > 0) { %>
+        <ul>
+          <% posts.forEach(post => { %>
+          <li class='mb-4'>
+            <h3 class='font-headings text-primary mb-2'><%= post.title %></h3>
+            <p class='mb-2'><%= post.content %></p>
+            <p class='text-sm'>Author: <%= post.author.username %></p>
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p>No posts yet. </p>
+        <% } %>
+      </div>
+      <% } else { %>
+      <p>Please sign in to view the content.</p>
+      <% } %>
+    </main>
+  </div>
 </body>
 
 </html>
