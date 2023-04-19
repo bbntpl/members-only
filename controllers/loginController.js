@@ -2,7 +2,8 @@ const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 
 exports.loginView = (req, res) => {
-	res.render('login', { errors: null })
+	const redirectUrl = req.query.redirectUrl || '/';
+	res.render('login', { redirectUrl, errors: null });
 }
 
 exports.validateLogin = [
@@ -42,7 +43,9 @@ exports.login = (req, res, next) => {
 
 		req.logIn(user, (err) => {
 			if (err) return next(err);
-			return res.redirect('/');
+			// after successful login
+			const redirectUrl = req.body.redirectUrl || '/'
+			res.redirect(redirectUrl);
 		});
 	})(req, res, next);
 };

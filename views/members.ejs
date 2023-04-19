@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Members List</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
+</head>
+
+<body class='bg-light text-dark font-sans min-h-screen'>
+  <% include ./partials/navbar.ejs %>
+  <main class='p-4'>
+    <h1 class='font-headings text-secondary text-xl mb-4'>
+      <span>
+        Members List
+      </span>
+      <span class='font-md text-opacity-75 text-secondary text-lg mb-4'>
+        ( <%= membersCount %> / <%= usersCount %> )
+      </span>
+    </h1>
+    </span>
+    <div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <% users.forEach(user => { %>
+      <div class='bg-white rounded-lg shadow p-4'>
+        <p class='text-gray-700'>
+          <a href='/members/<%= user._id %>' class='text-primary hover:text-accent'>
+            <%= user.username %>
+          </a>
+        </p>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+<div id='verification-modal' class='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center' style='display: none;'>
+  <div id='modal-dialog' role='dialog' aria-modal='true' class='sm: mx-4 relative z-50 bg-white rounded-lg shadow p-6 w-full max-w-lg transform scale-90 transition-opacity transition-transform duration-300 ease-out'>
+    <div class='text-center'>
+      <h2 class='text-2xl font-headings font-semibold mb-4'>Verification</h2>
+      <p class='text-gray-700 mb-6'>Enter the code we sent to your email.</p>
+      <form id='verification-form'>
+        <div class='mb-4'>
+          <label for='code' class='block text-gray-700 text-sm font-semibold mb-2'>Code <span class='text-accent'>*</span></label>
+          <input type='text' id='code' placeholder='code' class='w-full px-4 py-2 text-gray-700 bg-light border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent' name='code'>
+        </div>
+				<div id='verification-errors' class='text-red-500 mt-2'></div>
+        <button id='verify-membership-btn' type='submit' class='w-full py-2 px-4 text-white font-semibold bg-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-primary'>Verify</button>
+      </form>
+    </div>
+  </div>
+</div>

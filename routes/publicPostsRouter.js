@@ -3,6 +3,10 @@ const app = express.Router();
 
 const posts = require('../controllers/postsController');
 
+app.post('/send-passcode', posts.sendPasscode);
+
+app.post('/verify-passcode', posts.passcodeValidation, posts.verifyPasscode);
+
 app.get('/:id/update', posts.postUpdateView);
 
 app.post('/:id/update', posts.postUpdate);

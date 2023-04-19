@@ -2,6 +2,7 @@
 module.exports = {
 	content: [
 		'./views/**/*.{html,js,ejs}',
+		'./public/css/*.css',
 	],
 	darkMode: 'class',
 	theme: {
@@ -30,4 +31,16 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [],
+	corePlugins: {
+		backgroundColor: {
+			css: {
+				variable: true,
+			},
+		},
+		textColor: {
+			css: {
+				variable: true,
+			},
+		},
+	},
 }

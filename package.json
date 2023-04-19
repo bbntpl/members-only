@@ -9,6 +9,7 @@
     "watch:css": "nodemon -e css,js -w tailwind.css -w tailwind.config.js --exec 'npm run build:css'"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",

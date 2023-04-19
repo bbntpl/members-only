@@ -39,24 +39,3 @@ npm run devstart
 ```
 
 6. Open your browser and navigate to `http://localhost:3000`.
-
-
-
-
-Remember to delete the part below after the project is finished -B.B.
-## Database Model
-- User
-	< Credentials >
-		- username
-		- email
-		- hashedPassword
-	< Information >
-		- membershipStatus
-		- isAdmin
-		- firstName
-		- lastName
-		- about
-- Message
-	- Timestamp
-	- Title
-	- Content

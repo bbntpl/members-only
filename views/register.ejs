@@ -2,14 +2,15 @@
 <html>
 
 <head>
-  <title>Sign Up</title>
+	<title>TIC Clubhouse - Register</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='stylesheet' href='/stylesheets/style.css'>
   <link rel='stylesheet' href='/stylesheets/tailwind.css'>
   <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
 </head>
 
 <body class='pad-50 bg-light font-sans text-dark min-h-screen'>
-  <a href='/' class='text-primary text-md hover:underline'>Return to homepage</a>
+  <a href='<%= redirectUrl %>' class='text-primary text-md hover:underline'>Return to the previous page</a>
   <div class='container mx-auto mt-16 max-w-md p-6 bg-white rounded-lg shadow-md'>
     <h1 class='text-2xl font-semibold mb-6'>Sign Up</h1>
     <form action='/register' method='post'>

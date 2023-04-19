@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sticky-wrapper.sticky {
+  @apply bg-primary;
+}
+.sticky-wrapper.sticky .text-primary {
+  @apply text-light;
+}

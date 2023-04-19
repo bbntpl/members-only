@@ -45,6 +45,10 @@ const userSchema = new Schema({
 		default: false,
 	},
 	aboutMe: String,
+	createdAt: {
+		type: mongoose.Schema.Types.Date,
+		default: Date.now
+	}
 })
 
 userSchema.set('toJSON', {

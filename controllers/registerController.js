@@ -23,11 +23,13 @@ const verifyConfirmPassword = (confirmPassword, { req }) => {
 }
 
 exports.registerView = (req, res) => {
-	res.render('register', { 
+	const redirectUrl = req.query.redirectUrl || '/';
+	res.render('register', {
 		email: req.body.email,
 		username: req.body.username,
 		password: req.body.password,
-		errors: null 
+		redirectUrl,
+		errors: null
 	});
 }
 
@@ -58,30 +60,33 @@ exports.register = [
 		.custom(verifyConfirmPassword),
 	async (req, res, next) => {
 		const errors = validationResult(req);
+		const redirectUrl = req.body.redirectUrl || '/'
 		if (!errors.isEmpty()) {
 			return res.render('register', {
 				email: req.body.email,
 				username: req.body.username,
 				password: req.body.password,
 				errors: errors.array(),
+				redirectUrl
 			});
 		}
 
 		try {
 			const saltRounds = 12;
-				const salt = await bcrypt.genSalt(saltRounds);
-				const { password } = req.body;
-				const hash = await bcrypt.hash(password, salt);
-				
-				const user = new User({
-					email: req.body.email,
-					username: req.body.username,
-					hashedPassword: hash,
-				});
+			const salt = await bcrypt.genSalt(saltRounds);
+			const { password } = req.body;
+			const hash = await bcrypt.hash(password, salt);
 
-				await user.save();
+			const user = new User({
+				email: req.body.email,
+				username: req.body.username,
+				hashedPassword: hash,
+			});
 
-				return res.render('login');
+			await user.save();
+
+			// after successful user registration
+			return res.redirect('/login');
 		} catch (err) {
 			if (err.code === 11000) {
 				// dispaly duplicate key error
@@ -90,6 +95,7 @@ exports.register = [
 					username: req.body.username,
 					password: req.body.password,
 					errors: [{ msg: 'The email is already in use.' }],
+					redirectUrl,
 				});
 			} else {
 				// handle other errors

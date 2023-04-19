@@ -15,14 +15,14 @@
 <body class='pad-50 bg-light font-sans text-dark min-h-screen'>
   <div class='container mx-auto px-4 py-20'>
     <h1 class='font-headings text-primary text-4xl mb-8'>
-      <%= title %>
+      <%= title %> Clubhouse
     </h1>
     <% if(user) { %>
-    <p class='mb-8'>Welcome <%= user.username %>, please have a visit!</p>
+    <p class='mb-8'>Welcome <%= user.username %>, please have a visit to the <%= title %> Clubhouse!</p>
     <% } else { %>
-    <p class='mb-8'>Welcome to the Amba Gang Clubhouse!</p>
+    <p class='mb-8'>Welcome to the <%= title %> Clubhouse!</p>
     <% } %>
-    <div class='space-x-4'>
+    <div class='space-x-4 space-y-2'>
       <% if(!user) { %>
       <button id='sign-up-btn' class='bg-accent text-light font-semibold px-4 py-2 rounded hover:bg-accent-light transition-colors'>Sign
         up</button>

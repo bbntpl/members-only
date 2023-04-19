@@ -1,11 +1,7 @@
 require('dotenv').config();
 
-const { PORT, SECRET, MONGODB_URI } = process.env;
-
-const ENV_VARS = {
-	PORT, 
-	SECRET,
-	MONGODB_URI,
-}
-
-module.exports = ENV_VARS;
+module.exports = {
+  PORT,
+  MONGODB_URI,
+  SENDGRID_API_KEY,
+} = process.env;

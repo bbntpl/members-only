@@ -1,0 +1,23 @@
+<% if(!currentUser || (currentUser && !currentUser.hasMembershipStatus)) { %>
+<div class='flex mb-4 bg-white rounded-lg shadow p-4 flex-col justify-center content-center'>
+  <h1 class='font-headings text-secondary text-lg text-center mb-2'>Join the club now!</h1>
+  <ul class='list-disc list-inside text-gray-700 text-md mb-4'>
+    <li>Connect with like-minded individuals</li>
+    <li>Non-anonymous users</li>
+    <li>Be friends with other users</li>
+    <li>Participate on exclusive events and activities</li>
+    <li>Rant whenever you want, we don't care (Actually, we do, but we don't judge)</li>
+  </ul>
+
+  <% if (currentUser) { %>
+  <button id='open-verification-modal-btn' type='button' class='bg-accent hover:bg-primary text-white font-semibold py-2 px-4 rounded-lg'>
+    Click here for membership status
+  </button>
+  <% } else { %>
+  <p class='text-gray-700 text-md mb-4'>Please <a href='/login?redirectUrl=<%= encodeURIComponent("/public-posts") %>' class='text-accent'>log in</a> first to verify your membership status.</p>
+  <button id='open-verification-modal-btn' type='button' class='bg-accent bg-opacity-50 cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg' disabled>
+    Click here for membership status
+  </button>
+  <% } %>
+</div>
+<% } %>

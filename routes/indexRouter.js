@@ -4,7 +4,7 @@ const app = express.Router();
 /* GET home page. */
 app.get('/', function (req, res, next) {
 	res.render('index', {
-		title: 'Amba Gang Clubhouse',
+		title: 'The Ironic Cave',
 		user: req.user
 	});
 });

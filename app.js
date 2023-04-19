@@ -9,7 +9,7 @@ const helmet = require('helmet')
 const passport = require('passport');
 
 const indexRouter = require('./routes/indexRouter');
-const usersRouter = require('./routes/usersRouter');
+const membersRouter = require('./routes/membersRouter');
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
 const logoutRouter = require('./routes/logoutRouter');
@@ -60,13 +60,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(requestLogger);
-// app.use(tokenExtractor)
 
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/users', usersRouter);
+app.use('/members', membersRouter);
 app.use('/public-posts', postsRouter);
 
 // catch 404 and forward to error handler
@@ -74,7 +73,5 @@ app.use(unknownEndpoint);
 
 // error handler
 app.use(errorHandler);
-
-app.listen(3000, () => console.log('app listening on port 3000!'));
 
 module.exports = app;
