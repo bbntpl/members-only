@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>TIC Clubhouse - Delete your account</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
+</head>
+
+<body class='bg-light text-dark font-sans min-h-screen'>
+  <% include ./partials/navbar.ejs %>
+  <div class='flex'>
+    <% include ./partials/members-side.ejs %>
+    <main class='flex-grow p-4'>
+      <section class='bg-white shadow rounded-lg p-6'>
+        <h1 class='text-2xl font-semibold mb-6'>Delete User</h1>
+        <p class='mb-2'>Are you sure you want to delete your account?</p>
+        <form action='/member/<%= currentUser.id %>/delete' method='POST'>
+          <button type='submit' class='bg-red-500 text-white px-4 py-2 rounded'>Yes, please. I don't care about this community.</button>
+          <a href='/member/<%= currentUser.id %>' class='text-blue-500 ml-4'>No, go back</a>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>

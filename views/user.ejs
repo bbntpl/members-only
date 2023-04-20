@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>TIC Clubhouse - User Profile</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
+</head>
+
+<body class='bg-light text-dark font-sans min-h-screen'>
+  <% include ./partials/navbar.ejs %>
+  <div class='flex'>
+    <% include ./partials/members-side.ejs %>
+    <main class='flex-grow p-4'>
+      <section class='bg-white shadow rounded-lg p-6 mb-8'>
+        <h1 class='text-2xl font-semibold mb-6'>User Profile</h1>
+        <div class='flex items-center mb-4'>
+          <% if (user.isAdmin) { %>
+          <img src='/images/king-crown.svg' class='h-5 w-5 mr-2' alt='Admin Crown'>
+          <% } %>
+          <span class='text-lg font-bold'><%= user.username %></span>
+          <% if (user.hasMembershipStatus) { %>
+          <span class='bg-accent text-white font-semibold ml-2 mx-2 rounded-md px-2 py-1 '>Member</span>
+          <% } %>
+        </div>
+        <div class='mb-4'>
+          <span class='font-semibold'>Joined:</span> <%= timeSince(new Date(user.createdAt)) %>
+        </div>
+        <% if(user.fullname) { %>
+        <div class='mb-4'>
+          <span class='font-semibold'>Full Name:</span> <%= user.fullname %>
+        </div>
+        <% } %>
+        <% if(user.aboutMe) { %>
+        <div>
+          <span class='font-semibold'>About Me:</span>
+          <p class='mt-2'>
+            <%= user.aboutMe || 'This user has not provided any information about themselves.' %>
+          </p>
+        </div>
+        <% } %>
+        <% if (isCurrentUser) { %>
+        <div class='mt-4'>
+          <a href='/member/<%= user.id %>/update' class='bg-primary text-white font-semibold px-4 py-2 rounded mr-2'>Edit Profile</a>
+          <a href='/member/<%= user.id %>/delete' class='bg-red-600 text-white font-semibold px-4 py-2 rounded'>Delete Account</a>
+        </div>
+        <% } %>
+        <% if (!user.isAdmin && !user.hasMembershipStatus) { %>
+        <div class='mt-4'>
+          <a href='/member/<%= user.id %>/memberify' class='bg-green-500 text-white font-semibold px-4 py-2 rounded'>Make user a Member</a>
+        </div>
+        <% } else if(!user.isAdmin && user.hasMembershipStatus) { %>
+        <div class='mt-4'>
+          <a href='/member/<%= user.id %>/memberify' class='bg-gray-500 text-light font-semibold px-4 py-2 rounded'>Make user not a member</a>
+        </div>
+        <% } %>
+      </section>
+      <section class='bg-white shadow rounded-lg p-6'>
+        <h1 class='text-2xl font-semibold mb-6'>User Posts</h1>
+        <% if(userPosts.length > 0) { %>
+        <ul class='space-y-4'>
+          <% posts.forEach(post => { %>
+          <li>
+            <h2 class='text-xl font-semibold'><%= post.title %></h2>
+            <p><%= post.content %></p>
+            <span class='text-gray-500 text-sm'>Posted on <%= new Date(post.createdAt).toLocaleDateString() %></span>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <p class='text-gray-500'>
+          <%= isCurrentUser 
+						? 'You have not posted anything yet' 
+						: 'This user has not posted any content yet'
+						%>
+        </p>
+        <% } %>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>

@@ -61,6 +61,13 @@ userSchema.set('toJSON', {
 })
 
 userSchema.virtual('fullname').get(function() {
+	if(!this.firstName && !this.lastName) return null;
+	if(this.firstName && this.lastName) {
+		return `${this.firstName} ${this.lastName}`;
+	}
+	if(this.lastName) {
+		return this.lastName;
+	}
 	return `${this.firstName} ${this.lastName}`;
 })
 

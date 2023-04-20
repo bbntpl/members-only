@@ -20,6 +20,10 @@ const postSchema = new Schema({
 	content: { 
 		type: String,
 		required: true
+	},
+	userId: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
 	}
 });
 

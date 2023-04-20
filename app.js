@@ -10,6 +10,7 @@ const passport = require('passport');
 
 const indexRouter = require('./routes/indexRouter');
 const membersRouter = require('./routes/membersRouter');
+const memberRouter = require('./routes/memberRouter');
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
 const logoutRouter = require('./routes/logoutRouter');
@@ -66,6 +67,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/members', membersRouter);
+app.use('/member', memberRouter);
 app.use('/public-posts', postsRouter);
 
 // catch 404 and forward to error handler

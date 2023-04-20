@@ -18,18 +18,24 @@
         Members List
       </span>
       <span class='font-md text-opacity-75 text-secondary text-lg mb-4'>
-        ( <%= membersCount %> / <%= usersCount %> )
+        ( <%= membersCount %> / <%= users.length %> )
       </span>
     </h1>
     </span>
     <div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
       <% users.forEach(user => { %>
       <div class='bg-white rounded-lg shadow p-4'>
-        <p class='text-gray-700'>
-          <a href='/members/<%= user._id %>' class='text-primary hover:text-accent'>
-            <%= user.username %>
-          </a>
-        </p>
+				<div class='text-gray-700'>
+					<a href='/member/<%= user.id %>' class='inline-flex items-center text-primary hover:text-accent'>
+						<% if (user.isAdmin) { %>
+							<img src='/images/king-crown.svg' class='h-5 w-5 mr-2' alt='Admin Crown'>
+						<% } %>
+						<span class='mr-2'><%= user.username %></span>
+						<% if(user.hasMembershipStatus) { %> 
+							<span class='bg-accent text-light rounded-md px-2 py-1 text-sm'>member</span>
+						<% } %>
+					</a>
+				</div>
       </div>
       <% }) %>
     </div>

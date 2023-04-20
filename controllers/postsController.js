@@ -14,7 +14,6 @@ exports.passcodeValidation = [
 ];
 
 exports.sendPasscode = async (req, res) => {
-	console.log(req.user)
 	try {
 		if (!req.isAuthenticated()) {
 			return res.status(405).json({
@@ -68,8 +67,6 @@ exports.verifyPasscode = async (req, res, next) => {
 		}
 
 		await User.findByIdAndUpdate(req.user._id, { hasMembershipStatus: true })
-		console.log('hasMembershipStatus updated to true');
-
 		return res.status(200).json({
 			message: 'Passcode sent to email'
 		})
