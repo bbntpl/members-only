@@ -82,11 +82,7 @@ app.use(unknownEndpoint);
 // error handler
 app.use(errorHandler);
 
-// connect to the database before listening
-connectDB().then(() => {
-	app.listen(PORT, () => {
-		console.log("listening for requests");
-	})
-})
-
-module.exports = app;
+module.exports = {
+	app,
+	connectDB
+};

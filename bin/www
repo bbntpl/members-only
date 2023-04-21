@@ -5,7 +5,7 @@
  */
 
 const { PORT } = require('../utils/config');
-var app = require('../app');
+const { app, connectDB } = require('../app');
 var debug = require('debug')('members-only:server');
 var http = require('http');
 
@@ -26,10 +26,21 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+// connect to the MONGODBb database before listening
+async function startServer() {
+  try {
+		// connect to the MONGODBb database before listening
+    await connectDB();
 
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  } catch (err) {
+    console.error('Error starting server:', err);
+  }
+}
+
+startServer();
 /**
  * Normalize a port into a number, string, or false.
  */
