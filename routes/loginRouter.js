@@ -4,11 +4,12 @@ const app = express.Router();
 const {
 	loginView,
 	login,
-	validateLogin
+	validateLogin,
+	handleRedirectUrl
 } = require('../controllers/loginController');
 
-app.get('/', loginView);
+app.get('/', handleRedirectUrl, loginView);
 
-app.post('/', validateLogin, login);
+app.post('/', handleRedirectUrl, validateLogin, login);
 
 module.exports = app;

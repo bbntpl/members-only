@@ -75,41 +75,101 @@ exports.verifyPasscode = async (req, res, next) => {
 	}
 }
 
-exports.postUpdateView = (req, res) => {
-	res.send('GET - Post Update View')
+exports.postUpdateView = async (req, res, next) => {
+  try {
+		const users = await User.find({});
+    const post = await Post.findById(req.params.id).populate('author');
+    res.render('post-update', { 
+			currentUser: req.user,
+			users,
+			post,
+			timeSince
+		 });
+  } catch (err) {
+    next(err);
+  }
 }
 
-exports.postUpdate = (req, res) => {
-	res.send('POST - Post Update')
+exports.postUpdate = async (req, res, next) => {
+  const { title, content } = req.body;
+  try {
+		await Post.findOneAndUpdate({ _id: req.params.id }, { 
+			title, 
+			content,
+		});
+    res.redirect(`/public-posts/${req.params.id}`);
+  } catch (err) {
+    next(err);
+  }
 }
 
-exports.postDeleteView = (req, res) => {
-	res.send('GET - Post Delete View')
+exports.postDeleteView = async (req, res, next) => {
+  try {
+		const users = await User.find({});
+    const post = await Post.findById(req.params.id).populate('author');
+    res.render('post-delete', { 
+			currentUser: req.user,
+			users,
+			post,
+			timeSince
+		 });
+  } catch (err) {
+    next(err);
+  }
 }
 
-exports.postDelete = (req, res) => {
-	res.send('POST - Post Delete')
+exports.postDelete = async (req, res, next) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.redirect('/public-posts');
+  } catch (err) {
+    next(err);
+  }
 }
 
-exports.postDetailView = (req, res) => {
-	res.send('GET - Post Detail View')
+exports.postDetailView = async (req, res, next) => {
+  try {
+		const users = await User.find({});
+    const post = await Post.findById(req.params.id).populate('author');
+    res.render('post-detail', { 
+			currentUser: req.user,
+			post, 
+			users,
+			timeSince
+		 });
+  } catch (err) {
+    next(err);
+  }
 }
 
 exports.publicPostsView = async (req, res, next) => {
 	try {
 		const users = await User.find({});
-		const posts = await Post.find({});
+		const posts = await Post.find({}).populate('author')
+		.sort({ modified: -1, timestamp: -1 });
 		res.render('public-posts', {
 			currentUser: req.user,
 			posts,
 			users,
-			timeSince
+			timeSince,
+			originalUrl: req.originalUrl
 		});
 	} catch (err) {
 		return next(err)
 	}
 }
 
-exports.postCreate = (req, res) => {
-	res.send('GET - Post Create')
+exports.postCreate = async (req, res, next) => {
+  const { title, content } = req.body;
+  try {
+    const newPost = new Post({
+      title,
+      content,
+      author: req.user._id
+    });
+    await newPost.save();
+    res.redirect('/public-posts');
+  } catch (err) {
+    next(err);
+  }
 }

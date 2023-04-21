@@ -1,16 +1,22 @@
-<div id="sticky-anchor" class="invisible"></div>
+<div id='sticky-anchor' class='invisible'></div>
 <div class='sticky-wrapper' id='sticky-wrapper'>
-  <div class='flex flex-row py-2 px-6 justify-between mb-4'>
+  <div class='flex flex-row py-1 px-6 justify-between'>
     <div class='flex flex-row justify-start gap-x-4'>
-			<a href='/' class='text-primary hover:underline'><- Return to start</a>
-      <% if (currentUser && currentUser.hasMembershipStatus) { %>
-				<a href='/members' class='sm:block md:hidden text-primary hover:underline'>Members</a>
-      <% } %>
+      <a href='/' class='text-primary hover:underline'>
+        <- </a>
+          <% if (currentUser && currentUser.hasMembershipStatus) { %>
+          <a href='/members' class='sm:block md:hidden text-primary hover:underline'>Members</a>
+          <% } %>
+          <% if (!/\/public-posts\/?$/.test(originalUrl)) { %>
+          <a href='/public-posts/ %>' class='hover:underline text-primary'>Posts</a>
+          <% } %>
     </div>
-    <div class='flex flex-row justify-end gap-x-4'>
+    <div class='flex flex-row flex-wrap justify-end gap-x-4 mb-3'>
       <% if (currentUser) { %>
+
       <a href='/logout' class='text-primary hover:underline'>logout</a>
-      <a href= '/member/<%= currentUser.id %>' class='font-semibold font-lg text-primary'><%= currentUser.username %> </a>
+      <a href='/member/<%= currentUser.id %>' class='font-semibold font-lg text-primary'><%= currentUser.username %> </a>
+
       <% } else { %>
       <a href='/login?redirectUrl=<%= encodeURIComponent("/public-posts") %>' class='text-primary hover:underline'>login</a>
       <a href='/register?redirectUrl=<%= encodeURIComponent("/public-posts") %>' class='text-primary hover:underline'>sign up</a>

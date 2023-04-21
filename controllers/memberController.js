@@ -74,7 +74,8 @@ exports.memberView = async (req, res, next) => {
 		const currentUser = req.user;
 		const user = await User.findById(id);
 		const users = await User.find({});
-		const userPosts = await Post.find({ userId: req.params.id });
+		const userPosts = await Post.find({ author: req.params.id })
+		.sort({ modified: 1, timestamp: 1});
 		const isCurrentUser = id.toString() === currentUser._id.toString();
 
 		const toggleMembershipStatus = async () => {

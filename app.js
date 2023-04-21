@@ -36,9 +36,10 @@ mongoose.connect(MONGODB_URI)
 	});
 
 app.use(session({
-	secret: 'meow',
-	resave: false,
-	saveUninitialized: true
+	secret: SECRET_KEY,
+  resave: true,
+  saveUninitialized: true,
+  // cookie: { secure: true }
 }));
 
 // performance and security improvement setup
@@ -61,6 +62,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(requestLogger);
+
+// initialize originalUrl default value /
+app.locals.originalUrl = '/';
 
 app.use('/', indexRouter);
 app.use('/register', registerRouter);

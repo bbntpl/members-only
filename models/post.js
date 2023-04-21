@@ -21,8 +21,9 @@ const postSchema = new Schema({
 		type: String,
 		required: true
 	},
-	userId: {
+	author: {
 		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
 		required: true
 	}
 });
@@ -35,7 +36,7 @@ postSchema.set('toJSON', {
 	}
 })
 
-postSchema.pre('updateOne', function(next) {
+postSchema.pre('findOneAndUpdate', function(next) {
   this.set({ modified: Date.now() });
   next();
 });

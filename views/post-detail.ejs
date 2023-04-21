@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Post Details</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/tailwind.css' />
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
+</head>
+
+<body class='bg-light text-dark font-sans min-h-screen'>
+  <% include ./partials/navbar.ejs %>
+  <div class='flex'>
+    <% include ./partials/members-side.ejs %>
+    <main class='flex-grow mb-4 py-8 px-4 overflow-auto'>
+      <div class='flex flex-row content-center justify-between flex-wrap gap-4'>
+        <h1 class='text-primary text-2xl font-semibold my-3'><%= post.title %></h1>
+        <% if(currentUser && currentUser.id === post.author.id) { %>
+        <div class='my-3'>
+          <a href='/public-posts/<%= post.id %>/update' class='bg-blue-500 text-white px-4 py-2 rounded'>Update</a>
+          <a href='/public-posts/<%= post.id %>/delete' class='bg-red-500 text-white px-4 py-2 rounded'>Delete</a>
+        </div>
+        <% } %>
+      </div>
+      <div class='bg-white shadow rounded-lg p-6'>
+        <pre class='preserve-whitespace text-gray-700'><%= post.content %></pre>
+        <p class='mt-4 text-gray-400'>
+          <% if (currentUser && post.author.membershipStatus) { %>
+          <%= new Date(post.timestamp).getTime() === new Date(post.modified).getTime() ? 'Posted' : 'Edited' %> by <%= post.author.username %> <%= timeSince(new Date(post.timestamp).getTime() === new Date(post.modified).getTime() ? post.timestamp : post.modified) %>
+          <% } else { %>
+          <%= new Date(post.timestamp).getTime() === new Date(post.modified).getTime() ? 'Posted' : 'Edited' %> by Anonymous <%= timeSince(new Date(post.timestamp).getTime() === new Date(post.modified).getTime() ? post.timestamp : post.modified) %>
+          <% } %>
+      </div>
+
+    </main>
+  </div>
+</body>
+<script src='/javascripts/main.js'></script>
+
+</html>

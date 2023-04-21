@@ -1,5 +1,5 @@
-# Members-Only Club
-Members-Only Club is a web application where registered users can write anonymous posts. Inside the clubhouse, members can see who the author of a post is, but non-members can only see the contents by unknown users. This project uses Node.js, Express, MongoDB, Mongoose, EJS, and Tailwind CSS.
+# The Ironic Cave Clubhouse
+The Ironic Cave Clubhouse is a web application where registered users can write anonymous posts. Inside the clubhouse, members can see who the author of a post is, but non-members can only see the contents by unknown users. This project uses Node.js, Express, MongoDB, Mongoose, EJS, and Tailwind CSS.
 
 ## Features
 
@@ -29,8 +29,10 @@ npm install
 4. Create a `.env` file in the root of the project and add the following environment variables:
 ```.env
 PORT=3000
-SECRET=your_secret_key
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=<your_mongodb_connection_string>
+
+SECRET_KEY=<secret key for express-session library>
+SENDGRID_API_KEY=<your sendgrid api key for email services>
 ```
 
 5. Start the development server: 

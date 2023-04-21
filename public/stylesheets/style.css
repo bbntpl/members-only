@@ -10,6 +10,10 @@ a {
 	padding: 50px;
 }
 
+.preserve-whitespace {
+  white-space: pre-wrap;
+}
+
 .sticky-wrapper {
   position: -webkit-sticky;
   position: sticky;

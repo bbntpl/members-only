@@ -10,20 +10,20 @@
   <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap' rel='stylesheet'>
 </head>
 
-<body class='bg-light text-dark font-sans min-h-screen'>
+<body class='bg-light text-dark font-sans min-h-screen h-max'>
   <% include ./partials/verification-modal.ejs %>
-	<% include ./partials/navbar.ejs %>
-  <div class='flex'>
+  <% include ./partials/navbar.ejs %>
+  <div class='flex min-h-screen max-h-full'>
     <% include ./partials/members-side.ejs %>
-    <main class='flex-grow p-4'>
+    <main class='flex-grow py-8 px-4 overflow-auto'>
       <% include ./partials/membership-section.ejs %>
       <% if(currentUser) { %>
-      <div class='mb-4' id='create-post-btn'>
-        <button class='bg-accent text-light py-2 px-4 rounded'>Create post</button>
+      <div class='mb-4'>
+        <button  id='create-post-btn' class='bg-accent text-light py-2 px-4 rounded'>Show post form</button>
       </div>
       <% } %>
       <div id='create-post-form' class='hidden py-2 my-3 bg-white shadow'>
-        <form method='post' action='/public-posts/create'>
+        <form method='POST' action='/public-posts/'>
           <div class='mb-4 mx-4'>
             <label for='title' class='block text-gray-700 text-sm font-semibold mb-2'>Title:</label>
             <input type='text' id='title' name='title' placeholder='Enter post title' required class='w-full px-4 py-2 text-gray-700 bg-light border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent' />
@@ -37,23 +37,33 @@
           </button>
         </form>
       </div>
-      <div class='max-h-72 overflow-auto'>
+      <div class='max-h-72'>
         <h2 class='font-headings text-secondary mb-4'>Posts</h2>
         <% if(posts.length > 0) { %>
-        <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
           <% posts.forEach(post => { %>
           <div class='bg-white rounded-lg shadow p-4'>
-            <h2 class='text-xl font-semibold mb-2'>
-              <%= post.title %>
-            </h2>
+            <a href='/public-posts/<%= post.id %>' class='hover:underline'>
+              <h2 class='text-xl font-semibold mb-2'>
+                <%= post.title %>
+              </h2>
+            </a>
             <p class='text-gray-700 mb-4'>
               <%= post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '') %>
             </p>
             <p class='text-sm text-gray-500 mb-2'>
-              Posted on <%= new Date(post.createdAt).toLocaleDateString() %> at <%= new Date(post.createdAt).toLocaleTimeString() %>
+              <% if(post.timestamp === post.modified) { %>
+              Posted on <%= new Date(post.timestamp).toLocaleDateString() %> at <%= new Date(post.timestamp).toLocaleTimeString() %>
+              <% } else { %>
+              Modified on <%= new Date(post.modified).toLocaleDateString() %> at <%= new Date(post.modified).toLocaleTimeString() %>
+              <% } %>
             </p>
-            <% if (user && user.membershipStatus) { %>
-            <p class='text-sm text-gray-700'>Posted by <%= post.author.username %></p>
+            <% if (currentUser && currentUser.hasMembershipStatus) { %>
+            <p class='text-sm text-gray-700'>Posted by
+              <a href='/member/<%= post.author.id %>' class='text-accent hover:underline'>
+                <%= post.author.username %>
+              </a>
+            </p>
             <% } else { %>
             <p class='text-sm text-gray-700'>Posted by Anonymous</p>
             <% } %>
