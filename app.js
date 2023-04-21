@@ -27,19 +27,21 @@ const initialize = require('./passport-config');
 const app = express();
 
 mongoose.set('strictQuery', false);
-mongoose.connect(MONGODB_URI)
-	.then(() => {
-		console.log('Connected to MongoDB successfully');
-	})
-	.catch(err => {
+
+const connectDB = async () => {
+	try {
+		const conn = await mongoose.connect(MONGODB_URI)
+		console.log(`Connected to MongoDB successfully: ${conn.connection.host}`);
+
+	} catch (err) {
 		console.log('Error connecting to MongoDB:', err);
-	});
+	}
+}
 
 app.use(session({
 	secret: SECRET_KEY,
-  resave: true,
-  saveUninitialized: true,
-  // cookie: { secure: true }
+	resave: false,
+	saveUninitialized: true,
 }));
 
 // performance and security improvement setup
@@ -79,5 +81,12 @@ app.use(unknownEndpoint);
 
 // error handler
 app.use(errorHandler);
+
+// connect to the database before listening
+connectDB().then(() => {
+	app.listen(PORT, () => {
+		console.log("listening for requests");
+	})
+})
 
 module.exports = app;
