@@ -2,16 +2,22 @@ const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 
 exports.handleRedirectUrl = (req, res, next) => {
-	if(req.method === 'GET') {
-		let redirectUrl = req.query.redirectUrl || '/';
-		if (redirectUrl === '/register' || redirectUrl === '/register/') {
-			redirectUrl = '/';
-		}
-		req.session.redirectUrl = redirectUrl;
+	let redirectUrl = req.session.redirectUrl || req.query.redirectUrl || '/';
+	if (redirectUrl === '/register' || redirectUrl === '/register/') {
+		redirectUrl = '/';
 	}
-	console.log(`Redirect URL: ${req.session }`);
-	next();
-}
+	req.session.redirectUrl = redirectUrl;
+
+	// manually save to bypass default behavior of post requests
+	// for not saving session variables automatically
+	req.session.save((err) => {
+		if (err) {
+			return next(err);
+		}
+		next();
+	});
+};
+
 
 exports.loginView = (req, res) => {
 	res.render('login', {
@@ -56,11 +62,12 @@ exports.login = (req, res, next) => {
 			});
 		}
 
+		// Context: req.session unknowingly becomes undefined inside req.LogIn callback fn
+		// store the redirectUrl from session in a local variable
+		const redirectUrl = req.session.redirectUrl;
 		req.logIn(user, (err) => {
 			if (err) return next(err);
-			// after successful login
-			console.log('Redirecting to: ', req.session.redirectUrl);
-			res.redirect(req.session.redirectUrl);
+			res.redirect(redirectUrl);
 		});
 	})(req, res, next);
 };

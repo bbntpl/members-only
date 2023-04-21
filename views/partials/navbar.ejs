@@ -1,9 +1,8 @@
 <div id='sticky-anchor' class='invisible'></div>
 <div class='sticky-wrapper' id='sticky-wrapper'>
-  <div class='flex flex-row py-1 px-6 justify-between'>
+  <div class='flex flex-row py-3 px-6 justify-between items-center'>
     <div class='flex flex-row justify-start gap-x-4'>
-      <a href='/' class='text-primary hover:underline'>
-        <- </a>
+      <a href='/' class='text-primary hover:underline'>Return</a>
           <% if (currentUser && currentUser.hasMembershipStatus) { %>
           <a href='/members' class='sm:block md:hidden text-primary hover:underline'>Members</a>
           <% } %>
@@ -11,7 +10,7 @@
           <a href='/public-posts/ %>' class='hover:underline text-primary'>Posts</a>
           <% } %>
     </div>
-    <div class='flex flex-row flex-wrap justify-end gap-x-4 mb-3'>
+    <div class='flex flex-row flex-wrap justify-end gap-x-4 items-center' mb-3'>
       <% if (currentUser) { %>
 
       <a href='/logout' class='text-primary hover:underline'>logout</a>

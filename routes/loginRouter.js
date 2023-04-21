@@ -10,6 +10,6 @@ const {
 
 app.get('/', handleRedirectUrl, loginView);
 
-app.post('/', handleRedirectUrl, validateLogin, login);
+app.post('/', validateLogin, handleRedirectUrl, login);
 
 module.exports = app;
