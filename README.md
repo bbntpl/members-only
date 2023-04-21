@@ -1,6 +1,9 @@
 # The Ironic Cave Clubhouse
 The Ironic Cave Clubhouse is a web application where registered users can write anonymous posts. Inside the clubhouse, members can see who the author of a post is, but non-members can only see the contents by unknown users. This project uses Node.js, Express, MongoDB, Mongoose, EJS, and Tailwind CSS.
 
+## Data Model Schema
+![Models Diagram](./public/images/dbdiagram.png)
+
 ## Features
 
 - User local authentication and authorization with Passport.js
